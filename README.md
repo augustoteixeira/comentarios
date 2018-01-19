@@ -6,3 +6,9 @@ The Real World Haskell book includes a very nice commenting system for its onlin
 Although one can copy their frontend easily from the browser, I didn't manage to find the backend.
 
 This is a Flask implementation of the backend.
+
+Create a file `config.py` with
+
+    PASSWORD = 'yoursecret'
+
+
