@@ -1,0 +1,18 @@
+tmp=$(mktemp)   # Create a temporary file
+trap "rm -f $tmp; exit 1" 0 1 2 3 13 15
+
+header="<!DOCTYPE html><html lang=\"en\"><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"/><script type=\"text/javascript\" async src=\"https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML\"></script>"
+footer="</head></meta></html>"
+
+for file in "$@"
+do
+    tmp=$(mktemp)   # Create a temporary file
+    cat header > $tmp
+    cat $file >> $tmp
+    echo "$footer" >> $tmp
+    mv $tmp $file
+    chmod 644 $file
+    rm -f $tmp
+done
+
+trap 0
