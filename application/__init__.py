@@ -7,6 +7,7 @@ project_dir = os.path.dirname(os.path.abspath(__file__))
 database_file = "sqlite:///{}".format(os.path.join(project_dir, "bookdatabase.db"))
 
 app = Flask(__name__)
+app.config.from_object('config')
 app.config["SQLALCHEMY_DATABASE_URI"] = database_file
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -46,7 +47,7 @@ def submit_comments(label):
 
 @app.route("/admin/comments/comment/<id>/<password>")
 def deletar(id, password):
-    if (password != "fantacaju"):
+    if (password != app.config['PASSWORD']):
         return ""
     comment = Comment.query.filter_by(id=id).one()
     db.session.delete(comment)
