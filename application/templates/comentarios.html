@@ -1,0 +1,84 @@
+<a class="commenttoggle" id="toggle_{{ label }}"
+   onclick="return toggleComment('{{ label }}')"
+   href="comments: show / hide">{{ number_of_comments }}</a>
+
+{% for comment in comments %}
+
+<div class="comment"
+     id="comment{{ comment.id }}">
+  <a name="comment{{ comment.id }}"/>
+  <div class="comment_header">
+    <span class="comment_id">
+      <a href="/frozen/admin/comments/comment/{{ comment.id }}/"
+	 target="_blank">
+        {{ comment.id }}
+      </a>
+    </span>
+    <span class="comment_name">{{ comment.author }}</span>
+    <span class="comment_date">{{ comment.date }}</span>
+  </div>
+  <div class="comment_body"><p>{{ comment.body }}</p></div>
+</div>
+
+{% endfor %}
+
+<form class="comment" id="form_{{ label }}" action="/frozen/comments/submit/{{ label }}/"
+      method="post" >
+  <input type="hidden" name="id" value="{{ label }}" id="id_id" />
+  <table>
+    <tbody>
+      <tr>
+        <td align="right" valign="top">Comentar
+          <br>
+          <a class="comment_help"
+	     href="web.html#web.comment">[ ajuda ]
+          </a>
+        </td>
+        <td>
+          <textarea id="id_comment" rows="8" cols="60" name="comment"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td align="right">Seu nome
+        </td>
+        <td>
+          <input id="id_name" type="text" name="name" maxlength="64" />
+          <span class="comment_help">
+            <b>Requerido
+            </b> para
+            <a
+	      href="web.html#web.comment.name">darmos crédito
+            </a>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td align="right">Sua página
+        </td>
+        <td>
+          <input id="id_url" type="text" name="url" maxlength="128" />
+          <span class="comment_help">
+            <b>Opcional
+            </b>
+          </span>
+        </td>
+      </tr>
+      <tr>
+        <td align="right">Lembrar?
+        </td>
+        <td>
+          <input checked="checked" type="checkbox" name="remember" id="id_remember" />
+        </td>
+      </tr>
+      <tr>
+        <td/>
+        <td>
+          <input name="submit" type="submit" value="Submeter"/>
+          <span class="comment_error">
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>
+
